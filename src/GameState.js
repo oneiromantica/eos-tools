@@ -75,7 +75,8 @@ const State = (
   };
   const overwriteM = (target, value) => {
     Object.keys(value).forEach((k) => {
-      if (target[k] !== value[v]) target[k] = value[v];
+      if (value[v] !== null && value[v] !== undefined && target[k] !== value[v])
+        target[k] = value[v];
     });
   };
   return {

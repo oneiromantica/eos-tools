@@ -1,0 +1,22 @@
+{
+  "name": "eos-tools",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "mkdir -p ./bundle && for SRCFILE in ./src/*.js; do babel $SRCFILE -o ./bundle/${SRCFILE/.\\/src\\//}; done",
+    "minify": "mkdir -p ./dist && for FILE in ./bundle/*.js; do jsmin $FILE > ./dist/${FILE/.\\/bundle\\/}; done",
+    "build": "npm run bundle && npm run minify"
+  },
+  "author": "oneiromantica",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "jsmin": "^1.0.1",
+    "prettier": "^3.3.3"
+  },
+  "babel": {
+    "presets": "es2015"
+  }
+}
