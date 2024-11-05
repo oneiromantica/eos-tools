@@ -1,10 +1,10 @@
+import BaseConvert from "./BaseConvert";
 import BitField from "./BitField";
 
 const State = (
   initial,
   { compress = (x) => x, uncompress = (x) => x } = {},
 ) => {
-  const Base65 = BaseConvert();
   const getKeysOfType = (typeName) =>
     Object.keys(initial).filter((key) => typeof initial[key] === typeName);
   const boolValues = getKeysOfType("boolean");
@@ -34,7 +34,9 @@ const State = (
   const serializeStrings = (store) =>
     stringValues.map((key) => store[key]).join(fieldSeparator);
   const serializeNumbers = (store) =>
-    numberValues.map((key) => Base65.encode(store[key])).join(fieldSeparator);
+    numberValues
+      .map((key) => BaseConvert.encode(store[key]))
+      .join(fieldSeparator);
   const serializeBitFields = (store) =>
     bitFields.map((key) => BitField.toBase65(store[key]));
   const parseBools = (str) => {
@@ -50,7 +52,7 @@ const State = (
       return acc;
     }, {});
   const parseStrings = parseValues(stringValues, (x) => x);
-  const parseNumbers = parseValues(numberValues, Base65.decode);
+  const parseNumbers = parseValues(numberValues, BaseConvert.decode);
   const parseBitFields = parseValues(bitFields, BitField.fromBase65);
 
   const serialize = (store) =>
@@ -75,8 +77,8 @@ const State = (
   };
   const overwriteM = (target, value) => {
     Object.keys(value).forEach((k) => {
-      if (value[v] !== null && value[v] !== undefined && target[k] !== value[v])
-        target[k] = value[v];
+      if (value[k] !== null && value[k] !== undefined && target[k] !== value[k])
+        target[k] = value[k];
     });
   };
   return {

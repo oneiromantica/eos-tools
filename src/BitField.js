@@ -64,5 +64,6 @@ export const BitFieldBase = (L = 6) => {
   return { of, getAt, setAt, clearAt, toBase65, fromBase65, count };
 };
 
+window && (window.BitFieldBase = BitFieldBase);
 window && (window.BitField = BitFieldBase());
 export default BitFieldBase();
