@@ -44,6 +44,14 @@ export const BitFieldBase = (L = 6) => {
       ? bits.map((b, idx) => (idx === bucket ? b ^ idces[index] : b))
       : bits;
   };
+  const padTo = (nFlags, bits) => {
+    const needed = Math.max(Math.floor((nFlags - 1) / L) + 1, 1);
+    if (bits.length < needed) {
+      const d = bits.length - needed;
+      const missing = [...Array(d)].map(() => 0);
+      return bits.concat(missing);
+    }
+  };
   const of = (nFlags) => {
     assertIsNaturalNumber(nFlags);
     const spaces = Math.max(Math.floor((nFlags - 1) / L) + 1, 1);
@@ -61,7 +69,7 @@ export const BitFieldBase = (L = 6) => {
     for (let i = 0; i < l; i++) if (getAt(i, bits)) setBits++;
     return setBits;
   };
-  return { of, getAt, setAt, clearAt, toBase65, fromBase65, count };
+  return { of, getAt, setAt, clearAt, toBase65, fromBase65, count, padTo };
 };
 
 window && (window.BitFieldBase = BitFieldBase);
