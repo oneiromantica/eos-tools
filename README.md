@@ -1,7 +1,8 @@
  Tools for EOS tease authors.
  
- You install them by copy-pasting the file contents from the [/dist](/dist) folder,
-either directly from github or compile them yourself for maximum trust.
+ You install them by copy-pasting the file contents from the [/dist](/dist)
+folder into your init script, either directly from github or compile them
+yourself for maximum trust.
 
 ``` shell
 npm ci
